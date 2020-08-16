@@ -35,8 +35,7 @@ var str_hora = hora + ':' + min + ':' + seg;
 axios.get(urlRaphael)
     .then(response => {
         const api = response.data[0]
-        console.log(api)
-        const { id, nome, img } = api
+        const { id, nome, img, mensagem } = api
 
         divapp.innerHTML += `<div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action active" id="usuario">
@@ -44,6 +43,8 @@ axios.get(urlRaphael)
                 </a>
 
               </div>`
+
+              
 
         const divUsuario = document.getElementById(`usuario`)
 
@@ -55,27 +56,38 @@ axios.get(urlRaphael)
 
                     divUsuario.addEventListener('click', () => {
                         if (divTarefas.childElementCount < response.data.length) {
+                            inputAddTarefa.removeAttribute('disabled')
+                            btnAddTarefa.removeAttribute('disabled')
                             divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
                                                      <li class="list-group-item form-inline col-xl-12" id="tarefas">
-                                                       <button type="button" class="list-group-item list-group-item-action" id="tarefa-adicionada">${mensagem} <img src="${img}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
+                                                       <button type="button" class="list-group-item list-group-item-action" id="mensagem-adicionada-${api.id}">${mensagem} <img src="${img}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
                                                             </li>
                                                             </ul></div>`
 
                         }
+
+                        
+                        
                     })
+
+                   
 
                 }
 
+            
                 btnAddTarefa.addEventListener('click', () => {
                     axios.post(`${urlMensagem}`, {
                         "mensagem": `${inputAddTarefa.value} hora: ${str_hora} ${str_data} `
                     })
                         .then(response => {
-                            divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
+                            if (divTarefas.childElementCount > 0) {
+                                divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
                                                          <li class="list-group-item form-inline col-xl-12" id="tarefas">
-                                                           <button type="button" class="list-group-item list-group-item-action" id="tarefa-adicionada">${inputAddTarefa.value} hora: ${str_hora} ${str_data} <img src="${img}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
+                                                           <button type="button" class="list-group-item list-group-item-action" id="mensagem-adicionada-${divTarefas.childElementCount +1}">${inputAddTarefa.value} hora: ${str_hora} ${str_data}<img src="${img}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
                                                                 </li>
                                                                 </ul></div>`
+                            } 
+
 
 
                         })
@@ -84,7 +96,14 @@ axios.get(urlRaphael)
                         })
                 })
 
+                
+            
+
+                
+
             })
+
+           
 
 
 
