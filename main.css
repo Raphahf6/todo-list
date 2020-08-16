@@ -1,0 +1,40 @@
+body{
+    background-color: #153243;
+}
+
+#tarefa-adicionada{
+    margin-top: 2%;
+    word-wrap: break-word;
+}
+
+
+#adiciona-tarefa{
+    background-color: #44AF69;
+    border-style: none;
+    margin-left: 4%;
+    color: aliceblue;
+}
+
+.app{
+    margin-top: 0%;
+}
+
+.list-group{
+    margin-top: 1%;
+}
+
+#div-tarefas{
+    margin-bottom: 3%;
+}
+#container-app{
+    background-color: #153243;
+    border-radius: 15px;
+    margin-top: 7%;
+}
+
+div.input-group{
+    margin-top: 2%;
+}
+
+
+

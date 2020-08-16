@@ -1,0 +1,19 @@
+{
+  "raphael": [
+    {
+      "id": 0,
+      "nome": "Raphael",
+      "img": "https://avatars1.githubusercontent.com/u/39925526?s=460&v=4"
+    }
+  ],
+  "mensagems": [
+    {
+      "mensagem": "Minha primeira mensagem: 14:23:29 16/8/2020 ",
+      "id": 1
+    },
+    {
+      "mensagem": "adicionando uma mensagem não bugada nessa poha hora: 14:52:21 16/8/2020 ",
+      "id": 2
+    }
+  ]
+}
