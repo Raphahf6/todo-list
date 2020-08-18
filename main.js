@@ -40,7 +40,6 @@ btnDark.addEventListener('click', () =>{
 
 axios.get(urlGit)
     .then(response => {
-        console.log(response.data)
         const { avatar_url, bio, name, blog, repos_url } = response.data
         const nomeUsuario = document.getElementById('nome-titulo')
         const bioUsuario = document.getElementById('bio')
@@ -74,7 +73,6 @@ axios.get(urlGit)
                           </div>`
 
                             const repositorioAtual = document.querySelectorAll(`a#repositorio`)
-                            console.log(repositorioAtual)
                             repositorioAtual.forEach(repo => {
                                 // repo.setAttribute('href', `${downloadLink}`)
                             })
@@ -89,7 +87,6 @@ axios.get(urlGit)
 
         axios.get(urlTodo)
             .then(response => {
-                console.log(response.data.length)
                 if (response.data.length == 0) {
                     btnAddTarefa.removeAttribute('hidden')
                     inputAddTarefa.removeAttribute('hidden')
