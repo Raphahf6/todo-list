@@ -22,27 +22,61 @@
 </head>
 
 <body>
+    <div class="jumbotron jumbotron-fluid col-xl-12 col-md-12 col-sm-12 offset-xl-0" id="perfil">
+        <div class="container col-xl-12 col-md-12 col-sm-12 offset-xl-0">
+            <img src="" class="rounded float-left" alt="usuario" id="img-usuario"
+                style="width: 239px; height: 239px;">
+            <div class="container">
+                <h1 class="txt-usuario">Bem vindo de volta ! <h2 class="txt-usuario" id="nome-titulo"></h2>
+                </h1>
+                <h3 class="txt-usuario" id="bio"></h3>
+                
+            </div>
+            <div class="container" class="menu-navegacao col-xl-12 col-md-12 col-sm-12 offset-xl-0">
+                <div class="list-group list-group-horizontal col-xl-4 offset-xl-0">
+                    <button type="button" class="navegacao btn btn-success" id="btn-tarefas">
+                        Lista de Tarefas
+                    </button>
+                    <button type="button" class="navegacao btn btn-success" id="repositorios">
+                        Repositorios
+                    </button>
+                    <button type="button" class="dark btn btn-success" id="repositorios">
+                        Dark
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="container col-sm-12 offset-sm-0 col-lg-4 offset-lg-0 col-xl-12 offset-xl-0" id="container-app">
 
-        <div class="jumbotron jumbotron-fluid col-xl-12 offset-xl-0">
+        <div class="jumbotron jumbotron-fluid col-xl-12 offset-xl-0 bg-transparent">
             <div class="container col-sm-12 col-md-12 col-lg-12 col-xl-2 text-center offset-xl-0" id="app">
 
 
             </div>
-            <div class="container">
+            <div class="container col-xl-8 col-md-12 col-sm-12">
 
-                <div class="app col-xl-12" id="div-tarefas">
+                <div class="app col-xl-12 col-md-12 col-sm-12" id="div-tarefas">
 
                 </div>
+
+                <div class="app col-xl-12 col-md-12 col-sm-12" id="div-repositorios" hidden>
+
+                </div>
+
+                
             </div>
             <div class="container col-xl-12" id="container-input">
                 <div class="input-group">
                     <input type="text" class="form-control col-xl-5 offset-xl-3" id="nova-tarefa"
-                        placeholder="Adiciona alguma coisa a sua lista de tarefas" aria-label="Recipient's username"
-                        aria-describedby="button-addon2" disabled>
+                        placeholder="Adicione alguma coisa" aria-label="Recipient's username"
+                        aria-describedby="button-addon2"  hidden>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" id="adiciona-tarefa" type="button" id="button-addon2"
-                            disabled>Adicionar</button>
+                             hidden>Adicionar</button>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,13 @@
 const divTarefas = document.getElementById('div-tarefas')
+const divRepositorios = document.getElementById('div-repositorios')
 const divapp = document.getElementById('app')
 const btnAddTarefa = document.getElementById('adiciona-tarefa')
 const inputAddTarefa = document.getElementById('nova-tarefa')
-const urlUsuarios = 'https://raphahf6.github.io/todo-list/db.json'
+const btnDark = document.querySelector('button.dark')
+const urlUsuarios = 'http://localhost:3000/usuario'
+const urlTodo = 'http://localhost:3000/todo'
+const urlGit = 'https://api.github.com/users/raphahf6'
+
 // Obtém a data/hora atual
 var data = new Date();
 
@@ -23,102 +28,186 @@ var str_data = dia + '/' + (mes + 1) + '/' + ano4;
 var str_hora = hora + ':' + min + ':' + seg;
 
 
+btnDark.addEventListener('click', () =>{
+    document.getElementById('perfil').setAttribute('style', 'background-color: black;')
+    let colorir =  document.querySelectorAll('.txt-usuario')
+    colorir.forEach(element =>{
+        element.setAttribute('style', 'color:white;')
+    })
+    
+})
 
 
-
-// btnAddTarefa.addEventListener('click', () => {
-//     adicionaTarefa()
-// })
-
-
-axios.get(urlUsuarios)
+axios.get(urlGit)
     .then(response => {
-        const api = response.data
-        const { usuario } = api
-        for (i = 0; i < usuario.length; i++) {
-            const usuarioAtual = usuario[i]
-            console.log(usuarioAtual.img)
-            divapp.innerHTML += `<div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active" id="usuario">
-                  ${usuarioAtual.nome}
-                </a>
-
-              </div>`
-
-              
+        console.log(response.data)
+        const { avatar_url, bio, name, blog, repos_url } = response.data
+        const nomeUsuario = document.getElementById('nome-titulo')
+        const bioUsuario = document.getElementById('bio')
+        const imgUsuario = document.getElementById('img-usuario')
+        imgUsuario.setAttribute('src', `${avatar_url}`)
+        nomeUsuario.textContent = `${name}`
+        bioUsuario.textContent = `${bio}`
 
 
 
 
-        }
 
-        const divUsuario = document.getElementById(`usuario`)
+        axios.get(repos_url)
+            .then(res => {
 
-        const { mensagems } = api
-        for (i = 0; i < mensagems.length; i++) {
-            const mensagemAtual = mensagems[i]
+                for (i = 0; i < res.data.length; i++) {
+                    const { name } = res.data[i]
+                    const bntRepos = document.getElementById('repositorios')
+                    // const downloadLink = `https://github.com/raphahf6/${name}/archive/master.zip`
+                    bntRepos.addEventListener('click', () => {
+                        inputAddTarefa.setAttribute('hidden', '')
+                        btnAddTarefa.setAttribute('hidden', '')
+                        divRepositorios.removeAttribute('hidden')
+                        divTarefas.setAttribute('hidden', '')
+                        if (divRepositorios.childElementCount < res.data.length) {
+                            divRepositorios.innerHTML += `<div class="list-group">
+                            <a href="#" id="repositorio" class="list-group-item list-group-item-action active repos" id="">
+                              ${name} <img src="${avatar_url}" class="rounded float-right" alt="..." style="width: 33px; height:33px;margin-right: 0px;">
+                            </a>
+                            
+                          </div>`
 
-            divUsuario.addEventListener('click', () => {
-                if (divTarefas.childElementCount < mensagems.length) {
-                    inputAddTarefa.removeAttribute('disabled')
-                    btnAddTarefa.removeAttribute('disabled')
-                    divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
-                                                     <li class="list-group-item form-inline col-xl-12" id="tarefas">
-                                                       <button type="button" class="list-group-item list-group-item-action" id="mensagem-adicionada-${api.id}">${mensagemAtual.mensagem} <img src="${usuario[0].img}" class="rounded float-right" id="img-${usuario.id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
-                                                            </li>
-                                                            </ul></div>`
+                            const repositorioAtual = document.querySelectorAll(`a#repositorio`)
+                            console.log(repositorioAtual)
+                            repositorioAtual.forEach(repo => {
+                                // repo.setAttribute('href', `${downloadLink}`)
+                            })
+                        }
+
+
+                    })
+
+                }
+            })
+
+
+        axios.get(urlTodo)
+            .then(response => {
+                console.log(response.data.length)
+                if (response.data.length == 0) {
+                    btnAddTarefa.removeAttribute('hidden')
+                    inputAddTarefa.removeAttribute('hidden')
+                }
+                for (j = 0; j < response.data.length; j++) {
+
+                    const { mensagem, id } = response.data[j]
+                    const btnTarefas = document.getElementById(`btn-tarefas`)
+
+
+                    inputAddTarefa.removeAttribute('hidden')
+                    btnAddTarefa.removeAttribute('hidden')
+
+                    divTarefas.innerHTML += `<div class="container col-xl-12" id="mensagem-${id}"><ul class="list-group form-inline col-xl-12">
+                                                                     <li class="mensagem-${id} list-group-item form-inline col-xl-12 bg-transparent" id="tarefas" style="border-style:none;">
+                                                                       <button type="button" class="btns list-group-item list-group-item-action" id="${id}">${mensagem} <img src="${avatar_url}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
+                                                                            </li>
+                                                                            </ul></div>`
+
+
+
+
+
+                    let btns = document.querySelectorAll('button.btns')
+
+
+
+                    btns.forEach(btn => {
+                        btn.addEventListener('click', () => {
+
+                            const msgRemovida = document.getElementById(`${btn.id}`)
+                            const divMensagem = document.querySelector(`div#mensagem-${btn.id}`)
+                            const liMensagem = document.querySelector(`li.mensagem-${btn.id}`)
+
+                            if (divTarefas.childElementCount > 1) {
+                                axios.delete(`${urlTodo}/${btn.id}`, {
+
+                                })
+                                    .then(res => {
+                                        liMensagem.removeChild(msgRemovida)
+                                        divMensagem.setAttribute('hidden', '')
+                                    })
+                                    .catch(err => {
+                                        console.log(err)
+                                    })
+
+                            }
+
+                        })
+                    })
+
+
+
+
+                    btnTarefas.addEventListener('click', () => {
+                        inputAddTarefa.removeAttribute('hidden')
+                        btnAddTarefa.removeAttribute('hidden')
+                        divRepositorios.setAttribute('hidden', '')
+                        if (divTarefas.childElementCount < response.data.lengt || divRepositorios.hasAttribute('hidden')) {
+
+                            divTarefas.removeAttribute('hidden')
+
+
+                        }
+                    })
+
+
+
 
                 }
 
+                btnAddTarefa.addEventListener('click', () => {
+                    axios.post(`${urlTodo}`, {
+                        "mensagem": `${inputAddTarefa.value}`
+                    })
+                        .then(response => {
+                            divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
+                                                             <li class="list-group-item form-inline col-xl-12 bg-transparent" id="tarefas" style="border-style:none;">
+                                                               <button type="button" class="btns list-group-item list-group-item-action" id="${divTarefas.childElementCount}">${inputAddTarefa.value}<img src="${avatar_url}" class="rounded float-right" id="img" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
+                                                                    </li>
+                                                                    </ul></div>`
+
+                            // const btn = document.querySelectorAll(`button.btns`)
+
+                            // btn.forEach(btn => {
+                            //     btn.addEventListener('click', () => {
+
+                            //         const msgRemovida = document.getElementById(`${btn.id}`)
+                            //         const divMensagem = document.querySelector(`li.mensagem-${btn.id}`)
+
+                            //         if (divTarefas.childElementCount > 1) {
+                            //             axios.delete(`${urlTodo}/${btn.id}`, {
+
+                            //             })
+                            //                 .then(res => {
+                            //                     divMensagem.removeChild(msgRemovida)
+                            //                 })
+                            //                 .catch(err => {
+                            //                     console.log(err)
+                            //                 })
+
+                            //         }
+
+                            //     })
+                            // })
+
+                            inputAddTarefa.value = ''
+
+
+
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+
+                })
+
 
 
             })
-
-
-
-        }
-
-
-        btnAddTarefa.addEventListener('click', () => {
-            axios.post(`${urlUsuarios}`, {
-                "mensagem": `${inputAddTarefa.value} hora: ${str_hora} ${str_data} `
-            })
-                .then(response => {
-                    if (divTarefas.childElementCount > 0) {
-                        divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
-                                                         <li class="list-group-item form-inline col-xl-12" id="tarefas">
-                                                           <button type="button" class="list-group-item list-group-item-action" id="mensagem-adicionada-${divTarefas.childElementCount + 1}">${inputAddTarefa.value} hora: ${str_hora} ${str_data}<img src="${usuario[0].img}" class="rounded float-right" id="img-${usuario[0].id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
-                                                                </li>
-                                                                </ul></div>`
-                    }
-
-
-
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-
-
-
-            // axios.get(urlUsuarios)
-            //     .then(response => {
-            //         const api = response.data
-
-            //     })
-
-
-
-
-
-
-        })
-
-
-
-
-
-
     })
-
-

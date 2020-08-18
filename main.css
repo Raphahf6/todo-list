@@ -1,5 +1,13 @@
+@font-face{
+    font-family: roboto;
+    src: url(fonts/Roboto-Light.ttf)
+}
+
+
+
 body{
     background-color: #153243;
+    font-family: roboto;
 }
 
 #mensagem-adicionada{
@@ -19,22 +27,54 @@ body{
     margin-top: 0%;
 }
 
+a.list-group-item.list-group-item-action.active.repos{
+    background-color: #2B9EB3;
+    border-style: none;
+    border-color: #44AF69;
+    font-family: sans-serif;
+    font-variant: normal;
+    font-size: 1rem;
+}
+
 .list-group{
     margin-top: 1%;
 }
 
-#div-tarefas{
-    margin-bottom: 3%;
+div.app{
+    height: 18rem;
+    overflow:auto;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #153243;
+    border-width: 1px;
+    background-color: #153243;
+    word-wrap: break-word;
+
 }
 #container-app{
-    background-color: #153243;
     border-radius: 15px;
-    margin-top: 7%;
+    margin-top: 0%;
 }
 
 div.input-group{
     margin-top: 2%;
 }
 
+#perfil{
+    height: 22rem;
+    word-wrap: break-word;
 
+}
+
+button#tarefas{
+    background-color: #44AF69;
+}
+
+button.navegacao.btn.btn-success{
+    margin-right: 10px;
+}
+
+button.btns{
+    color: black;
+}
 
