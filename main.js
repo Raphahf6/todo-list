@@ -83,26 +83,26 @@ axios.get(urlGit)
 
                 }
                 axios.get(urlTodo)
-    .then(response => {
-        console.log(response.data)
-        const api = response.data
-        const {todo} = api
-        console.log(todo)
-        if (response.data.length == 0) {
-            btnAddTarefa.removeAttribute('hidden')
-            inputAddTarefa.removeAttribute('hidden')
-        }
-        for (j = 0; j < todo.length; j++) {
+                    .then(response => {
+                        console.log(response.data)
+                        const api = response.data
+                        const { todo } = api
+                        console.log(todo)
+                        if (response.data.length == 0) {
+                            btnAddTarefa.removeAttribute('hidden')
+                            inputAddTarefa.removeAttribute('hidden')
+                        }
+                        for (j = 0; j < todo.length; j++) {
 
-            const { mensagem, id } = todo[j]
+                            const { mensagem, id } = todo[j]
 
-            const btnTarefas = document.getElementById(`btn-tarefas`)
+                            const btnTarefas = document.getElementById(`btn-tarefas`)
 
 
-            inputAddTarefa.removeAttribute('hidden')
-            btnAddTarefa.removeAttribute('hidden')
+                            inputAddTarefa.removeAttribute('hidden')
+                            btnAddTarefa.removeAttribute('hidden')
 
-            divTarefas.innerHTML += `<div class="container col-xl-12" id="mensagem-${id}"><ul class="list-group form-inline col-xl-12">
+                            divTarefas.innerHTML += `<div class="container col-xl-12" id="mensagem-${id}"><ul class="list-group form-inline col-xl-12">
                                                              <li class="mensagem-${id} list-group-item form-inline col-xl-12 bg-transparent" id="tarefas" style="border-style:none;">
                                                                <button type="button" class="tarefa list-group-item list-group-item-action" id="${id}">${mensagem} <img src="${avatar_url}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
                                                                     </li>
@@ -112,103 +112,75 @@ axios.get(urlGit)
 
 
 
-            let tarefa = document.querySelectorAll('button.tarefa')
+                            let tarefa = document.querySelectorAll('button.tarefa')
 
 
 
-            tarefa.forEach(btn => {
-                btn.addEventListener('click', () => {
+                            tarefa.forEach(btn => {
+                                btn.addEventListener('click', () => {
 
-                    const msgRemovida = document.getElementById(`${btn.id}`)
-                    const divMensagem = document.querySelector(`div#mensagem-${btn.id}`)
-                    const liMensagem = document.querySelector(`li.mensagem-${btn.id}`)
+                                    const msgRemovida = document.getElementById(`${btn.id}`)
+                                    const divMensagem = document.querySelector(`div#mensagem-${btn.id}`)
+                                    const liMensagem = document.querySelector(`li.mensagem-${btn.id}`)
 
-                    if (divTarefas.innerText.length > 35) {
-                        axios.delete(`${urlTodo}/${btn.id}`, {
+                                    if (divTarefas.innerText.length > 35) {
+                                        axios.delete(`${urlTodo}/${btn.id}`, {
 
-                        })
-                            .then(res => {
-                                liMensagem.removeChild(msgRemovida)
-                                divMensagem.setAttribute('hidden', '')
+                                        })
+                                            .then(res => {
+                                                liMensagem.removeChild(msgRemovida)
+                                                divMensagem.setAttribute('hidden', '')
+                                            })
+                                            .catch(err => {
+                                                console.log(err)
+                                            })
+
+                                    }
+
+                                })
                             })
-                            .catch(err => {
-                                console.log(err)
+
+
+
+
+                            btnTarefas.addEventListener('click', () => {
+                                inputAddTarefa.removeAttribute('hidden')
+                                btnAddTarefa.removeAttribute('hidden')
+                                divRepositorios.setAttribute('hidden', '')
+                                if (divTarefas.childElementCount < response.data.lengt || divRepositorios.hasAttribute('hidden')) {
+
+                                    divTarefas.removeAttribute('hidden')
+
+
+                                }
                             })
 
-                    }
-
-                })
-            })
 
 
 
+                        }
 
-            btnTarefas.addEventListener('click', () => {
-                inputAddTarefa.removeAttribute('hidden')
-                btnAddTarefa.removeAttribute('hidden')
-                divRepositorios.setAttribute('hidden', '')
-                if (divTarefas.childElementCount < response.data.lengt || divRepositorios.hasAttribute('hidden')) {
-
-                    divTarefas.removeAttribute('hidden')
-
-
-                }
-            })
-
-
-
-
-        }
-
-        btnAddTarefa.addEventListener('click', () => {
-            axios.post(`${urlTodo}`, {
-                "mensagem": `${inputAddTarefa.value}`
-            })
-                .then(response => {
-                    divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
+                        btnAddTarefa.addEventListener('click', () => {
+                            divTarefas.innerHTML += `<div class="container col-xl-12"><ul class="list-group form-inline col-xl-12">
                                                      <li class="list-group-item form-inline col-xl-12 bg-transparent" id="tarefas" style="border-style:none;">
                                                        <button type="button" class="btns list-group-item list-group-item-action" id="${divTarefas.childElementCount}">${inputAddTarefa.value}<img src="${avatar_url}" class="rounded float-right" id="img" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
                                                             </li>
                                                             </ul></div>`
 
-                    // const btn = document.querySelectorAll(`button.btns`)
 
-                    // btn.forEach(btn => {
-                    //     btn.addEventListener('click', () => {
 
-                    //         const msgRemovida = document.getElementById(`${btn.id}`)
-                    //         const divMensagem = document.querySelector(`li.mensagem-${btn.id}`)
-
-                    //         if (divTarefas.childElementCount > 1) {
-                    //             axios.delete(`${urlTodo}/${btn.id}`, {
-
-                    //             })
-                    //                 .then(res => {
-                    //                     divMensagem.removeChild(msgRemovida)
-                    //                 })
-                    //                 .catch(err => {
-                    //                     console.log(err)
-                    //                 })
-
-                    //         }
-
-                    //     })
-                    // })
-
-                    inputAddTarefa.value = ''
+                            inputAddTarefa.value = ''
 
 
 
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-
-        })
 
 
 
-    })
+                        })
+
+
+
+                    })
             })
 
 
