@@ -8,6 +8,7 @@
 body{
     background-color: #153243;
     font-family: roboto;
+    margin: 1vh;
 }
 
 #mensagem-adicionada{
@@ -63,6 +64,7 @@ div.input-group{
 #perfil{
     height: 22rem;
     word-wrap: break-word;
+    border-radius: 1vh;
 
 }
 
