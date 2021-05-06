@@ -68,6 +68,10 @@ div.input-group{
 
 }
 
+#img-usuario {
+    margin-right: 1.5vh;
+}
+
 button#tarefas{
     background-color: #44AF69;
 }

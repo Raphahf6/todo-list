@@ -67,7 +67,7 @@ axios.get(urlGit)
                         if (divRepositorios.childElementCount < res.data.length) {
                             divRepositorios.innerHTML += `<div class="list-group">
                             <a href="#" id="repositorio" class="list-group-item list-group-item-action active repos" id="">
-                              ${name} <img src="${avatar_url}" class="rounded float-right" alt="..." style="width: 33px; height:33px;margin-right: 0px;">
+                              ${name} <img src="${avatar_url}" class="rounded float-right" alt="..." style="width: 33px; height:33px;">
                             </a>
                             
                           </div>`
