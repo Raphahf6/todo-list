@@ -84,10 +84,8 @@ axios.get(urlGit)
                 }
                 axios.get(urlTodo)
                     .then(response => {
-                        console.log(response.data)
                         const api = response.data
                         const { todo } = api
-                        console.log(todo)
                         if (response.data.length == 0) {
                             btnAddTarefa.removeAttribute('hidden')
                             inputAddTarefa.removeAttribute('hidden')
@@ -104,7 +102,7 @@ axios.get(urlGit)
 
                             divTarefas.innerHTML += `<div class="container col-xl-12" id="mensagem-${id}"><ul class="list-group form-inline col-xl-12">
                                                              <li class="mensagem-${id} list-group-item form-inline col-xl-12 bg-transparent" id="tarefas" style="border-style:none;">
-                                                               <button type="button" class="tarefa list-group-item list-group-item-action" id="${id}">${mensagem} <img src="${avatar_url}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
+                                                               <button type="text" class="tarefa list-group-item list-group-item-action" id="${id}">${mensagem}<img src="${avatar_url}" class="rounded float-right" id="img-${id}" alt="..." style="width: 50px; height:50px;margin-right: 9px;"></button>
                                                                     </li>
                                                                     </ul></div>`
 
@@ -116,14 +114,13 @@ axios.get(urlGit)
 
 
 
-                            tarefa.forEach(btn => {
-                                btn.addEventListener('click', () => {
-
+                            Array.of(tarefa).map((btn, index) => {
+                                addEventListener('click', () => {
                                     const msgRemovida = document.getElementById(`${btn.id}`)
                                     const divMensagem = document.querySelector(`div#mensagem-${btn.id}`)
                                     const liMensagem = document.querySelector(`li.mensagem-${btn.id}`)
 
-                                    if (divTarefas.innerText.length > 35) {
+                                   /* if (divTarefas.innerText.length > 35) {
                                         axios.delete(`${urlTodo}/${btn.id}`, {
 
                                         })
@@ -135,7 +132,14 @@ axios.get(urlGit)
                                                 console.log(err)
                                             })
 
-                                    }
+                                    }*/
+
+                                })
+                            })
+                            tarefa.forEach(btn => {
+                                btn.addEventListener('click', () => {
+
+
 
                                 })
                             })
