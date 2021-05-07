@@ -1,6 +1,5 @@
 const sectionApp = document.getElementById('app-main')
 const sectionLogin = document.getElementById('login')
-sectionApp.setAttribute('hidden', '')
 const inputLogin = document.getElementById('input-login')
 const bntLogin = document.getElementById('btn-login')
 
@@ -15,8 +14,12 @@ bntLogin.addEventListener('click', () => {
                 alert('Usuario invalido')
                 location.reload()
             }
-            sectionApp.removeAttribute('hidden')
-            sectionLogin.setAttribute('hidden', '')
+            else {
+                sectionApp.removeAttribute('hidden')
+                sectionLogin.setAttribute('hidden', '')
+            }
+
+
             const divTarefas = document.getElementById('div-tarefas')
             const divRepositorios = document.getElementById('div-repositorios')
             const divapp = document.getElementById('app')
